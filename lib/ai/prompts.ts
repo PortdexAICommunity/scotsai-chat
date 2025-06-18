@@ -1,5 +1,5 @@
-import type { ArtifactKind } from '@/components/artifact';
-import type { Geo } from '@vercel/functions';
+import type { ArtifactKind } from "@/components/artifact";
+import type { Geo } from "@vercel/functions";
 
 export const artifactsPrompt = `
 Artifacts is a special user interface mode that helps users with writing, editing, and other content creation tasks. When artifact is open, it is on the right side of the screen, while the conversation is on the left side. When creating or updating documents, changes are reflected in real-time on the artifacts and visible to the user.
@@ -33,13 +33,13 @@ Do not update document right after creating it. Wait for user feedback or reques
 `;
 
 export const regularPrompt =
-  'You are a friendly assistant! Keep your responses concise and helpful.';
+	"You are a friendly assistant! Keep your responses concise and helpful.";
 
 export interface RequestHints {
-  latitude: Geo['latitude'];
-  longitude: Geo['longitude'];
-  city: Geo['city'];
-  country: Geo['country'];
+	latitude: Geo["latitude"];
+	longitude: Geo["longitude"];
+	city: Geo["city"];
+	country: Geo["country"];
 }
 
 export const getRequestPromptFromHints = (requestHints: RequestHints) => `\
@@ -51,19 +51,19 @@ About the origin of user's request:
 `;
 
 export const systemPrompt = ({
-  selectedChatModel,
-  requestHints,
+	selectedChatModel,
+	requestHints,
 }: {
-  selectedChatModel: string;
-  requestHints: RequestHints;
+	selectedChatModel: string;
+	requestHints: RequestHints;
 }) => {
-  const requestPrompt = getRequestPromptFromHints(requestHints);
+	const requestPrompt = getRequestPromptFromHints(requestHints);
 
-  if (selectedChatModel === 'chat-model-reasoning') {
-    return `${regularPrompt}\n\n${requestPrompt}`;
-  } else {
-    return `${regularPrompt}\n\n${requestPrompt}\n\n${artifactsPrompt}`;
-  }
+	if (selectedChatModel === "chat-model-reasoning") {
+		return `${regularPrompt}\n\n${requestPrompt}`;
+	} else {
+		return `${regularPrompt}\n\n${requestPrompt}\n\n${artifactsPrompt}`;
+	}
 };
 
 export const codePrompt = `
@@ -97,25 +97,53 @@ You are a spreadsheet creation assistant. Create a spreadsheet in csv format bas
 `;
 
 export const updateDocumentPrompt = (
-  currentContent: string | null,
-  type: ArtifactKind,
+	currentContent: string | null,
+	type: ArtifactKind
 ) =>
-  type === 'text'
-    ? `\
+	type === "text"
+		? `\
 Improve the following contents of the document based on the given prompt.
 
 ${currentContent}
 `
-    : type === 'code'
-      ? `\
+		: type === "code"
+		? `\
 Improve the following code snippet based on the given prompt.
 
 ${currentContent}
 `
-      : type === 'sheet'
-        ? `\
+		: type === "sheet"
+		? `\
 Improve the following spreadsheet based on the given prompt.
 
 ${currentContent}
 `
-        : '';
+		: "";
+
+export const LEGAL_NEWS_PROMPT = `You are a legal assistant specializing in UK immigration and law. Use the fetch tool exactly once using the format:
+https://www.lawgazette.co.uk/searchresults?qkeyword=WORD
+Only replace WORD with the relevant keyword from the user's query (e.g., "immigration").
+If there are more than one word in the question, use fetch_content tool for both words in sequentially order. 
+After the fetch_content tool has returned results, summarize only the relevant news articles about the keyword. Do not include UI text, cookie banners, or unrelated categories.
+If the user question is not related to immigration law, visas, UK law, or solicitors, politely decline to answer.
+If no news articles are found, let the user know clearly.`;
+
+export const LEGAL_FIND_PROMPT = `use the fetch tool and while using it use this link https://www.trustpilot.com/search?query=WORD but in place of WORD use the word that highlight the question for example if the question is 'find a lawyer in london' then use the link https://www.trustpilot.com/search?query=lawyer only use once and then, based on toolResult generate a response to answer the question. Decline politely if the question is not related to law, lawyers, solicitors, or the legal sector.`;
+
+export const LEGAL_SEARCH_PROMPT = `use the web_search_exa tool and while using add 'in 2025' at the end of the question. Then, based on toolResult generate a response to answer the question. Decline politely if the question is not related to law, lawyers, solicitors, or the legal sector.`;
+
+export const FALLBACK_PROMPT = `"You are a legal expert assistant. Only respond to questions related to the legal sector. This includes topics such as:
+Immigration Law
+Housing Law
+Conveyancing (residential & commercial property)
+Civil Litigation
+Family Law
+Insolvency & Bankruptcy
+Medical Negligence
+Personal Injury
+Professional Negligence
+Corporate Law
+Wills & Probate
+Or when users ask about lawyer/lawyers, solicitor/solicitors, immigration consultants, visa consultants, or UK visa.
+If the question is not related to these topics, reply only with:
+'I can only help with law, lawyers, solicitors, or legal sector questions.'"`;

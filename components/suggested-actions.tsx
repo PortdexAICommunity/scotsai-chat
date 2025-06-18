@@ -19,25 +19,25 @@ function PureSuggestedActions({
 }: SuggestedActionsProps) {
   const suggestedActions = [
     {
-      title: 'What are the advantages',
-      label: 'of using Next.js?',
-      action: 'What are the advantages of using Next.js?',
-    },
-    {
-      title: 'Write code to',
-      label: `demonstrate djikstra's algorithm`,
-      action: `Write code to demonstrate djikstra's algorithm`,
-    },
-    {
-      title: 'Help me write an essay',
-      label: `about silicon valley`,
-      action: `Help me write an essay about silicon valley`,
-    },
-    {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
-    },
+			title: "What are the current UK visa",
+			label: "requirements for skilled workers?",
+			action: "What are the current UK visa requirements for skilled workers?",
+		},
+		{
+			title: "Can I appeal a UK Home Office",
+			label: "immigration decision?",
+			action: `Can I appeal a UK Home Office immigration decision?`,
+		},
+		{
+			title: `What does 'leave to remain'`,
+			label: "mean under UK immigration law?",
+			action: `What does 'leave to remain' mean under UK immigration law?`,
+		},
+		{
+			title: "What is the GDPR and",
+			label: "how does it apply to UK businesses?",
+			action: "What is the GDPR and how does it apply to UK businesses?",
+		},
   ];
 
   return (
