@@ -220,7 +220,13 @@ const PurePreviewMessage = ({
 												) : (
 													<FormatSearchResult data={result.content} />
 												)
-											) : toolName === "fetch" ? (
+											) : toolName === "company_research_exa" ? (
+												isLoading === true ? (
+													<AnimatedShinyText text="Fetching data from Web..." />
+												) : (
+													""
+												)
+											) : toolName === "fetch_content" ? (
 												isLoading === true ? (
 													<AnimatedShinyText text="Fetching data from Web..." />
 												) : (

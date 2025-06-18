@@ -120,7 +120,7 @@ ${currentContent}
 `
 		: "";
 
-export const LEGAL_NEWS_PROMPT = `You are a legal assistant specializing in UK immigration and law. Use the fetch tool exactly once using the format:
+export const LEGAL_NEWS_PROMPT = `You are a legal assistant specializing in UK immigration and law. Use the fetch_content tool exactly once using the format:
 https://www.lawgazette.co.uk/searchresults?qkeyword=WORD
 Only replace WORD with the relevant keyword from the user's query (e.g., "immigration").
 If there are more than one word in the question, use fetch_content tool for both words in sequentially order. 
@@ -128,7 +128,9 @@ After the fetch_content tool has returned results, summarize only the relevant n
 If the user question is not related to immigration law, visas, UK law, or solicitors, politely decline to answer.
 If no news articles are found, let the user know clearly.`;
 
-export const LEGAL_FIND_PROMPT = `use the fetch tool and while using it use this link https://www.trustpilot.com/search?query=WORD but in place of WORD use the word that highlight the question for example if the question is 'find a lawyer in london' then use the link https://www.trustpilot.com/search?query=lawyer only use once and then, based on toolResult generate a response to answer the question. Decline politely if the question is not related to law, lawyers, solicitors, or the legal sector.`;
+export const LEGAL_FIND_PROMPT = `use the fetch_content tool and while using it use this link https://www.trustpilot.com/search?query=WORD but in place of WORD use the word that highlight the question for example if the question is 'find a lawyer in london' then use the link https://www.trustpilot.com/search?query=lawyer only use once and then, based on toolResult generate a response to answer the question. Decline politely if the question is not related to law, lawyers, solicitors, or the legal sector.`;
+
+// export const LEGAL_FIND_PROMPT = `use the company_research_exa tool, based on toolResult generate a response to answer the question. Decline politely if the question is not related to law, lawyers, solicitors, or the legal sector.`;
 
 export const LEGAL_SEARCH_PROMPT = `use the web_search_exa tool and while using add 'in 2025' at the end of the question. Then, based on toolResult generate a response to answer the question. Decline politely if the question is not related to law, lawyers, solicitors, or the legal sector.`;
 
