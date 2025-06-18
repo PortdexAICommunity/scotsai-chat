@@ -20,6 +20,7 @@ import { DocumentPreview } from './document-preview';
 import { MessageReasoning } from './message-reasoning';
 import type { UseChatHelpers } from '@ai-sdk/react';
 import AnimatedShinyText from './animation/shiny-text';
+import { FormatSearchResult } from './format-search-result';
 
 const PurePreviewMessage = ({
   chatId,
@@ -213,7 +214,19 @@ const PurePreviewMessage = ({
                           result={result}
                           isReadonly={isReadonly}
                         />
-                      ) : (
+                      ) : toolName === "web_search_exa" ? (
+												isLoading === true ? (
+													<AnimatedShinyText text="Fetching data from Web..." />
+												) : (
+													<FormatSearchResult data={result.content} />
+												)
+											) : toolName === "fetch" ? (
+												isLoading === true ? (
+													<AnimatedShinyText text="Fetching data from Web..." />
+												) : (
+													""
+												)
+											) : (
                         <pre>{JSON.stringify(result, null, 2)}</pre>
                       )}
                     </div>
