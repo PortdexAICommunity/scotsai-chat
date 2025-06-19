@@ -115,7 +115,7 @@ export async function POST(request: Request) {
 				if (selectedChatModel === "chat-model-search") {
 					mcpUrl = `https://server.smithery.ai/exa/mcp?api_key=${process.env.MCP_API_KEY}`;
 				} else {
-					mcpUrl = `https://server.smithery.ai/@smithery-ai/fetch/mcp?api_key=${process.env.MCP_API_KEY}`;
+					mcpUrl = `https://server.smithery.ai/@nickclyde/duckduckgo-mcp-server/mcp?api_key=${process.env.MCP_API_KEY}`;
 				}
 
 				const transport = new StreamableHTTPClientTransport(new URL(mcpUrl));
